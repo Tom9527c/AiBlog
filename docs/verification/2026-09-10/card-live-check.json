@@ -1,0 +1,43 @@
+{
+  "total": 3,
+  "items": [
+    {
+      "id": 35,
+      "category": {
+        "id": 7,
+        "title": "测试分类",
+        "slug": "7580c260-f204-4e7a-9eea-3cb296dff421"
+      },
+      "tags": [
+        {
+          "id": 7,
+          "title": "测试标签",
+          "slug": "76cb9f5b-d9e8-4be7-96f9-fbfc9d279a13"
+        }
+      ],
+      "isLatest": true,
+      "coverConfigured": false,
+      "publishedAt": "2026-09-10T05:57:09.000Z",
+      "updatedAt": "2026-09-10T05:58:24.000Z"
+    },
+    {
+      "id": 34,
+      "category": {
+        "id": 7,
+        "title": "测试分类",
+        "slug": "7580c260-f204-4e7a-9eea-3cb296dff421"
+      },
+      "tags": [
+        {
+          "id": 7,
+          "title": "测试标签",
+          "slug": "76cb9f5b-d9e8-4be7-96f9-fbfc9d279a13"
+        }
+      ],
+      "isLatest": false,
+      "coverConfigured": false,
+      "publishedAt": "2026-09-09T05:47:24.000Z",
+      "updatedAt": "2026-09-09T05:47:34.438Z"
+    }
+  ]
+}

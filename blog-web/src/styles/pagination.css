@@ -1,0 +1,16 @@
+#pagination { gap: 8px; margin: 24px 0 32px; }
+#pagination button { display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 40px; padding: 0 10px; border: 1px solid var(--blog-border); border-radius: 9px; background: var(--blog-card); color: var(--blog-text); font-size: 16px; font-weight: 600; transition: background .2s, border-color .2s, color .2s; }
+#pagination button:hover, #pagination button.current { background: var(--blog-blue); border-color: var(--blog-blue); color: #fff; }
+#pagination button.current { box-shadow: 0 4px 12px #425aef22; }
+#pagination button:focus-visible { outline: 2px solid var(--blog-blue); outline-offset: 3px; }
+#pagination .pagination-gap { color: var(--blog-text); opacity: .6; }
+#pagination .pagination-jump { display: flex; align-items: center; gap: 0; border: 1px solid var(--blog-border); border-radius: 9px; background: var(--blog-card); transition: border-color .2s; }
+#pagination .pagination-jump:focus-within, #pagination .pagination-jump:hover { border-color: var(--blog-blue); }
+#pagination .pagination-jump:focus-within { box-shadow: 0 0 0 2px color-mix(in srgb, var(--blog-blue), transparent 80%); }
+#pagination .pagination-jump :is(input, button):focus { outline: none; box-shadow: none; }
+#pagination .pagination-jump button { border: 0; height: 38px; min-width: 38px; background: transparent; color: var(--blog-text); font-size: 24px; }
+#pagination .pagination-jump input { width: 0; min-width: 0; height: 32px; padding: 0; opacity: 0; border: 0; border-radius: 0; background: transparent; color: var(--blog-text); text-align: center; transition: width .2s, opacity .2s; appearance: textfield; }
+#pagination .pagination-jump input::-webkit-inner-spin-button, #pagination .pagination-jump input::-webkit-outer-spin-button { appearance: none; margin: 0; }
+#pagination .pagination-jump:hover input, #pagination .pagination-jump:focus-within input { width: 54px; opacity: 1; }
+@media (hover: none) { #pagination .pagination-jump input { width: 48px; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { #pagination button, #pagination .pagination-jump, #pagination .pagination-jump input { transition: none; } }

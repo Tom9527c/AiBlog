@@ -1,0 +1,138 @@
+.collection-page {
+  margin-top: 8px;
+}
+.collection-hero {
+  position: relative;
+  min-height: 180px;
+  margin: 0 0 34px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #425aef 0%, #7b61ff 48%, #e779c8 100%);
+  background-position: center;
+  background-size: cover;
+  color: white;
+  box-shadow: 0 12px 30px #425aef24;
+}
+.collection-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #111b55cc, #111b5533 70%, #1110);
+}
+.collection-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 180px;
+  padding: 32px 38px;
+  flex-direction: column;
+  justify-content: center;
+}
+.collection-hero__tips {
+  margin-bottom: 4px;
+  font-size: 14px;
+  opacity: 0.82;
+}
+.collection-hero strong {
+  font-size: 34px;
+  line-height: 1.25;
+}
+.collection-hero p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+.collection-group {
+  margin: 0 0 34px;
+}
+.collection-group h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  color: var(--blog-text);
+  font-size: 22px;
+}
+.collection-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.collection-card-link,
+.collection-card {
+  width: calc(16.6667% - 15px);
+}
+.collection-card-link {
+  display: block;
+  color: white;
+}
+.collection-card {
+  position: relative;
+  display: flex;
+  min-height: 230px;
+  overflow: hidden;
+  padding: 12px;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #5968d9, #252d65);
+  background-position: center;
+  background-size: cover;
+  color: white;
+  isolation: isolate;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.collection-card::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(180deg, #10132399 0%, #1013231f 35%, #101323d9 100%);
+  content: "";
+}
+.collection-card-link:hover {
+  color: white;
+}
+.collection-card-link:hover .collection-card,
+.collection-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 16px 28px #1115;
+}
+.collection-card__top,
+.collection-card__content {
+  position: relative;
+  z-index: 1;
+}
+.collection-card__top {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.collection-card__top span:first-child {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff3;
+  font-size: 16px;
+}
+.collection-card__content {
+  padding-top: 48px;
+}
+.collection-card__title {
+  display: block;
+  overflow: hidden;
+  color: white;
+  font-size: 18px;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.collection-card__stars {
+  margin-top: 5px;
+  color: #ffd666;
+  font-size: 15px;
+  letter-spacing: 2px;
+}

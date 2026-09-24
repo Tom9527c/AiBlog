@@ -1,0 +1,44 @@
+/* Fullscreen hero sits outside the article grid; disabling it preserves the original homepage. */
+#home-hero {
+  position: relative; flex: none; width: 100%; height: 100vh; height: 100svh;
+  min-height: 420px; margin-top: -60px; color: #fff;
+}
+/* Keep the fixed scene behind the cards while scrolling, then reveal the page
+   background as its opacity reaches zero. Isolate at page level, not hero level. */
+#body-wrap.home-hero-page { isolation: isolate; }
+.home-hero__scene {
+  position: fixed; z-index: -1; inset: 0; overflow: hidden; pointer-events: none;
+  opacity: var(--hero-scroll-opacity, 1);
+  background: linear-gradient(135deg, #132838, #23395e 50%, #647995);
+}
+.home-hero__scene video[controls] { pointer-events: auto; }
+.home-hero__text { opacity: var(--hero-scroll-opacity, 1); }
+.home-hero__background { position: absolute; inset: 0; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.home-hero--parallax .home-hero__background { inset: -22px; transform: translate3d(var(--hero-x, 0px), var(--hero-y, 0px), 0); will-change: transform; }
+/* The original theme gives all videos z-index: 1. Keep both media types on the same
+   layer so the incoming slide, rendered last, covers the outgoing video frame. */
+#home-hero .home-hero__image { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; max-width: none; border-radius: 0; object-fit: var(--hero-fit, cover); object-position: var(--hero-position, center); opacity: 0; transition: opacity .8s ease; }
+#home-hero .home-hero__image.is-loaded { opacity: 1; }
+.home-hero__shade { position: absolute; inset: 0; background: linear-gradient(180deg, #0003, transparent 35%, #0002), rgb(0 0 0 / var(--hero-overlay, .25)); pointer-events: none; }
+.home-hero__text { position: relative; display: flex; height: 100%; padding: 90px 24px 120px; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-shadow: 0 2px 12px #0006; pointer-events: none; }
+#home-hero h1 { max-width: 1100px; margin: 0; color: #fff; font-size: clamp(32px, 4.2vw, 64px); line-height: 1.35; font-weight: 800; letter-spacing: .04em; white-space: pre-line; overflow-wrap: anywhere; }
+#home-hero p { max-width: 900px; margin: 20px 0 0; font-size: clamp(16px, 2vw, 26px); line-height: 1.7; color: #fffe; white-space: pre-line; }
+.home-hero__text small { margin-top: 20px; color: #fffd; }
+#home-hero button { cursor: pointer; border: 0; color: #fff; background: transparent; }
+#home-hero button:focus-visible { outline: 2px solid white; outline-offset: 2px; border-radius: 8px; }
+#home-hero .home-hero__down { position: absolute; bottom: max(16px, env(safe-area-inset-bottom)); left: calc(50% - 24px); display: grid; place-items: center; width: 48px; height: 48px; animation: hero-down 2s ease-in-out infinite; }
+#body-wrap.home-hero-page #page-header.blog-navigation:not(.nav-fixed) #nav { background: transparent; outline: none; }
+#body-wrap.home-hero-page #page-header.blog-navigation:not(.nav-fixed) #nav :is(#site-name, .site-page, .nav-action) { color: #fff; text-shadow: 0 1px 6px #0004; }
+#body-wrap.home-hero-page #page-header.blog-navigation:not(.nav-fixed) #nav :is(#site-name .title, .nav-action i) { color: #fff; }
+#body-wrap.home-hero-page #page-header.blog-navigation:not(.nav-fixed) .console-symbol i { background: #fff; }
+@keyframes hero-down { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+@media (max-width: 768px) {
+  #home-hero { min-height: 360px; }
+  .home-hero__text { padding: 80px 24px 130px; }
+  #home-hero h1 { font-size: clamp(30px, 8vw, 44px); }
+  #home-hero p { margin-top: 16px; font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #home-hero .home-hero__down { animation: none; }
+  #home-hero .home-hero__image, .home-hero__background { transition: none; }
+}

@@ -1,0 +1,563 @@
+.blog-comments {
+  --comment-accent: var(--blog-blue);
+  --comment-input: var(--blog-bg);
+  color: var(--blog-text);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 2;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--blog-border);
+  min-width: 0;
+}
+.blog-comments .comment-section-heading,
+.blog-comments .comment-list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.blog-comments .comment-section-heading {
+  margin-bottom: 22px;
+}
+.blog-comments .comment-section-heading h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 20px;
+}
+.blog-comments .comment-section-heading > span {
+  font-size: 12px;
+}
+.blog-comments .comment-section-heading button {
+  padding: 0 4px;
+  background: none;
+  font-size: 12px;
+}
+.blog-comments .comment-section-heading button:hover {
+  color: var(--comment-accent);
+}
+.blog-comments .comment-composer {
+  border: 0;
+  border-radius: 0;
+  position: relative;
+  margin: 0;
+  min-width: 0;
+}
+.blog-comments .comment-editor {
+  position: relative;
+  min-width: 0;
+}
+.blog-comments .comment-editor textarea,
+.blog-comments .comment-preview {
+  display: block;
+  width: 100%;
+  height: 130px;
+  min-height: 130px;
+  padding: 16px 16px 40px;
+  border: 1px solid var(--blog-border);
+  border-radius: 15px;
+  background: var(--comment-input);
+  color: var(--blog-text);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  resize: vertical;
+}
+.blog-comments .comment-preview {
+  height: auto;
+}
+.blog-comments .comment-editor textarea::placeholder {
+  color: color-mix(in srgb, var(--blog-text) 45%, var(--blog-card));
+}
+.blog-comments .comment-editor textarea:focus {
+  outline: none;
+  border-color: var(--comment-accent);
+  box-shadow: none;
+}
+.blog-comments .comment-toolbar {
+  position: absolute;
+  left: 12px;
+  bottom: 9px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 24px;
+}
+.blog-comments .comment-toolbar button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--blog-text);
+  padding: 2px;
+  min-width: 22px;
+  height: 24px;
+}
+.blog-comments .comment-toolbar button:hover,
+.blog-comments .comment-toolbar button[aria-pressed="true"] {
+  color: var(--comment-accent);
+}
+.blog-comments .comment-toolbar .comment-preview-toggle {
+  font-size: 12px;
+  margin-left: 2px;
+  padding: 0 6px;
+}
+.blog-comments .comment-counter {
+  position: absolute;
+  right: 10px;
+  bottom: 7px;
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 24px;
+}
+.blog-comments .comment-composer-bottom {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  margin-top: 8px;
+  min-width: 0;
+}
+.blog-comments .comment-identity {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+.blog-comments .comment-identity label {
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  min-width: 0;
+  height: 34px;
+  border: 1px solid var(--blog-border);
+  border-radius: 12px;
+  background: var(--comment-input);
+  font-size: 13px;
+}
+.blog-comments .comment-identity label:focus-within {
+  border-color: var(--comment-accent);
+}
+.blog-comments .comment-identity label > span {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 0 14px;
+  background: var(--blog-card);
+}
+.blog-comments .comment-identity input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  padding: 0 14px;
+  font: inherit;
+  color: inherit;
+}
+.blog-comments .comment-identity input::placeholder {
+  color: color-mix(in srgb, var(--blog-text) 45%, var(--blog-card));
+}
+.blog-comments .comment-submit {
+  flex: 0 0 100px;
+  height: 34px;
+  border-radius: 12px;
+  padding: 0 16px;
+  background: var(--comment-accent);
+  color: #fff;
+  font-size: 12px;
+}
+.blog-comments .comment-submit:disabled {
+  opacity: 0.45;
+  background: var(--comment-accent);
+  color: white;
+}
+.blog-comments .comment-signed-in {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  opacity: 0.7;
+  padding-left: 6px;
+}
+.blog-comments .comment-list-heading {
+  margin: 14px 0 24px;
+}
+.blog-comments .comment-list-heading h3 {
+  font-size: 20px;
+  margin: 0;
+}
+.blog-comments .comment-list-heading > div {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.blog-comments .comment-list-heading select {
+  border: 1px solid var(--blog-border);
+  border-radius: 4px;
+  color: var(--comment-accent);
+  background: var(--blog-card);
+  height: 28px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+.blog-comments .comment-list-heading button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  padding: 4px;
+}
+.blog-comments .comment-list-heading button:hover {
+  color: var(--comment-accent);
+}
+.blog-comments .comment-entry {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  margin: 0 0 16px;
+  min-width: 0;
+  border-radius: 12px;
+  background: var(--blog-card);
+}
+.blog-comments .comment-avatar {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--comment-accent) 8%, transparent);
+  color: var(--comment-accent);
+  font-size: 20px;
+}
+.blog-comments .comment-avatar img,
+.blog-comments .comment-avatar .media-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.blog-comments .comment-main {
+  min-width: 0;
+  flex: 1;
+}
+.blog-comments .comment-byline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 40px;
+}
+.blog-comments .comment-author-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+  line-height: 1.8;
+}
+.blog-comments .comment-author {
+  color: var(--comment-accent);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  font-size: 16px;
+}
+.blog-comments .comment-author-line time {
+  font-size: 12.8px;
+  color: var(--blog-text);
+}
+.blog-comments .comment-owner {
+  background: var(--comment-accent);
+  color: #fff;
+  font-size: 12px;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+.blog-comments .comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.blog-comments .comment-actions button {
+  padding: 0;
+  min-width: 18px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: transparent;
+  color: inherit;
+}
+.blog-comments .comment-actions svg {
+  width: 18px;
+  height: 18px;
+}
+.blog-comments .comment-actions button span {
+  color: var(--comment-accent);
+  font-size: 12px;
+}
+.blog-comments .comment-actions button:hover,
+.blog-comments .comment-actions button[aria-pressed="true"] {
+  color: var(--comment-accent);
+}
+.blog-comments .comment-body {
+  font-size: 16px;
+  line-height: 2;
+  overflow-wrap: anywhere;
+}
+.blog-comments .comment-body p {
+  margin: 0 0 8px;
+  white-space: pre-wrap;
+}
+.blog-comments .comment-body a {
+  border-bottom: 2px solid var(--comment-accent);
+}
+.blog-comments .comment-body a:has(img) {
+  border: 0;
+}
+.blog-comments .comment-body img {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+  max-height: 240px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+.blog-comments .comment-body pre {
+  overflow: auto;
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--blog-bg);
+}
+.blog-comments .comment-body blockquote {
+  border-left: 3px solid var(--comment-accent);
+  margin: 8px 0;
+  padding: 0 12px;
+  opacity: 0.8;
+}
+.blog-comments .comment-body table {
+  display: block;
+  max-width: 100%;
+  overflow: auto;
+}
+.blog-comments .comment-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 8px 0 0;
+  padding-bottom: 8px;
+}
+.blog-comments .comment-badges > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--blog-border);
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-size: 12.8px;
+  line-height: 18px;
+  color: var(--blog-text);
+  opacity: 0.8;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.blog-comments .comment-badges svg {
+  height: 13px;
+  width: 13px;
+  flex-shrink: 0;
+}
+.blog-comments .comment-replies {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.blog-comments .comment-replies > .comment-entry {
+  border-top: 1px dashed var(--blog-border);
+  padding: 16px 0 0;
+  margin: 0;
+  background: transparent;
+}
+.blog-comments .comment-reply-to {
+  font-size: 13px;
+  margin: 5px 0;
+}
+.blog-comments .comment-composer-inline {
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+.blog-comments .comment-cancel {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+}
+.blog-comments .comment-cancel button {
+  padding: 4px 15px;
+  font-size: 12px;
+  background: var(--comment-input);
+  color: var(--blog-text);
+}
+.blog-comments .comment-cancel button:hover {
+  color: var(--comment-accent);
+}
+.blog-comments .comment-emoji {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 10px;
+  background: var(--blog-card);
+  border: 1px solid var(--blog-border);
+  border-radius: 10px;
+  margin-top: 8px;
+}
+.blog-comments .comment-emoji button {
+  font-family: system-ui;
+  font-size: 23px;
+  background: transparent;
+  padding: 5px;
+}
+.blog-comments .comment-image-input {
+  display: flex;
+  padding: 10px;
+  gap: 8px;
+  border: 1px solid var(--blog-border);
+  border-radius: 10px;
+  margin-top: 8px;
+}
+.blog-comments .comment-image-input input {
+  flex: 1;
+  font-size: 13px;
+}
+.blog-comments .comment-notice,
+.blog-comments .comment-error {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.blog-comments .comment-notice {
+  background: #16a34a10;
+  color: #15803d;
+}
+.blog-comments .comment-error {
+  background: #e11d4810;
+  color: #e11d48;
+}
+.blog-comments .comment-empty {
+  padding: 30px 0;
+  text-align: center;
+  opacity: 0.5;
+  font-size: 14px;
+}
+.blog-comments .comment-empty svg {
+  width: 32px;
+  height: 32px;
+}
+@media (max-width: 1000px) {
+  .blog-comments .comment-identity label > span {
+    padding: 0 10px;
+  }
+  .blog-comments .comment-identity input {
+    padding: 0 8px;
+  }
+  .blog-comments .comment-submit {
+    flex-basis: 80px;
+  }
+}
+@media (max-width: 600px) {
+  .blog-comments .comment-composer-bottom {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .blog-comments .comment-identity {
+    flex-basis: 100%;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .blog-comments .comment-identity label {
+    height: 36px;
+  }
+  .blog-comments .comment-identity label > span {
+    width: 56px;
+    justify-content: center;
+    padding: 0 10px;
+  }
+  .blog-comments .comment-submit {
+    margin-left: auto;
+    height: 34px;
+    flex-basis: 100px;
+  }
+  .blog-comments .comment-section-heading > span {
+    max-width: 50%;
+    text-align: right;
+  }
+  .blog-comments .comment-entry {
+    gap: 10px;
+    padding: 12px 0;
+    margin-bottom: 16px;
+  }
+  .blog-comments .comment-avatar {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    font-size: 16px;
+  }
+  .blog-comments .comment-byline {
+    align-items: flex-start;
+    gap: 4px;
+    flex-wrap: wrap;
+    min-height: 34px;
+  }
+  .blog-comments .comment-author {
+    font-size: 15px;
+  }
+  .blog-comments .comment-author-line {
+    padding-top: 2px;
+  }
+  .blog-comments .comment-author-line time {
+    font-size: 11px;
+  }
+  .blog-comments .comment-actions {
+    margin-left: auto;
+    gap: 5px;
+  }
+  .blog-comments .comment-actions button {
+    min-width: 24px;
+    height: 30px;
+  }
+  .blog-comments .comment-actions svg {
+    width: 16px;
+    height: 16px;
+  }
+  .blog-comments .comment-body {
+    font-size: 14px;
+  }
+  .blog-comments .comment-replies {
+    margin-left: -24px;
+  }
+  .blog-comments .comment-replies > .comment-entry {
+    gap: 8px;
+  }
+  .blog-comments .comment-replies .comment-avatar {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+    font-size: 14px;
+  }
+  .blog-comments .comment-badges > span {
+    font-size: 11px;
+    padding: 1px 6px;
+    line-height: 18px;
+  }
+  .blog-comments .comment-badges svg {
+    width: 12px;
+    height: 12px;
+  }
+  .blog-comments .comment-composer-inline {
+    margin-left: -18px;
+  }
+}

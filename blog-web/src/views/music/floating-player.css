@@ -1,0 +1,32 @@
+#nav-music.floating-player { position: fixed; inset: auto auto max(24px,env(safe-area-inset-bottom)) 24px; z-index: 100; width: auto; height: auto; overflow: visible; max-width: calc(100vw - 100px); padding: 0; border: 0; border-radius: 30px; color: var(--blog-text); background: transparent; font: inherit; }
+.floating-player button { font: inherit; color: inherit; cursor: pointer; border: 0; background: transparent; padding: 0; }
+.floating-player button:disabled { opacity: .5; cursor: default; }
+.floating-capsule { display: flex; align-items: center; height: 54px; padding: 5px; border: 1px solid var(--blog-border); border-radius: 30px; background: var(--blog-card); box-shadow: 0 4px 18px #0002; transition: background .2s,color .2s,box-shadow .2s; box-sizing: border-box; max-width: 100%; }
+.floating-player:is(.is-playing,.is-expanded):hover .floating-capsule,.floating-player.is-playing .floating-capsule { color: #fff; background: var(--blog-blue); box-shadow: 0 0 16px color-mix(in srgb,var(--blog-blue) 35%,transparent); }
+.floating-player .floating-disc { position: relative; display: grid; place-items: center; width: 42px; height: 42px; flex: none; border-radius: 50%; overflow: hidden; border: 2px solid #fff; color: #fff; }
+.floating-art { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.floating-art-empty { display: grid; place-items: center; background: var(--blog-blue); }
+.floating-player.is-playing .floating-art { animation: floating-disc-spin 12s linear infinite; }
+.floating-play-icon { position: absolute; inset: 0; display: grid; place-items: center; background: #0004; font-size: 17px; line-height: 1; }
+.floating-player .floating-title { min-width: 0; max-width: 170px; padding: 0 16px 0 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; height: 42px; font-size: 16px; }
+.floating-player .floating-lyric { display: none; width: 220px; min-width: 0; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; padding: 0 18px; height: 42px; border-left: 1px solid #ffffff40; font-size: 14px; text-align: left; }
+.floating-player:is(.is-playing,.is-expanded) .floating-lyric { display: block; }
+.floating-panel { position: absolute; left: 0; bottom: 66px; width: min(360px,calc(100vw - 48px)); padding: 18px; max-height: min(570px,calc(100dvh - 150px)); overflow: auto; border: 1px solid var(--blog-border); border-radius: 18px; background: var(--blog-card); color: var(--blog-text); box-shadow: 0 8px 40px #0003; box-sizing: border-box; }
+.floating-panel header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.floating-panel header div { min-width: 0; }.floating-panel header strong { display: block; font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }.floating-panel header small { opacity: .6; font-size: 12px; }
+.floating-panel header button { font-size: 24px; width: 30px; height: 30px; }
+.floating-panel-lyric { font-size: 14px; text-align: center; min-height: 24px; color: var(--blog-blue); margin: 18px 0 12px; }
+.floating-player .floating-range { --fill: 0%; appearance: none; -webkit-appearance: none; display: block; width: 100%; height: 20px; padding: 0; margin: 0; border: 0; border-radius: 0; background: linear-gradient(to right,var(--blog-blue) var(--fill),var(--blog-border) var(--fill)) center / 100% 4px no-repeat; cursor: pointer; outline: none; }
+.floating-range::-webkit-slider-runnable-track { height: 4px; background: transparent; }.floating-range::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 12px; height: 12px; margin-top: -4px; background: var(--blog-blue); border: 2px solid var(--blog-card); border-radius: 50%; box-shadow: 0 0 3px #0003; }
+.floating-range::-moz-range-track { height: 4px; background: transparent; }.floating-range::-moz-range-thumb { width: 10px; height: 10px; border: 2px solid var(--blog-card); border-radius: 50%; background: var(--blog-blue); }
+.floating-player :is(button,a,input):focus-visible { outline: 2px solid var(--blog-blue); outline-offset: 3px; }
+.floating-time { display: flex; align-items: center; justify-content: space-between; font-size: 11px; opacity: .7; font-variant-numeric: tabular-nums; }
+.floating-controls { display: flex; align-items: center; gap: 14px; padding: 14px 0; }.floating-controls button { flex: none; min-height: 28px; }.floating-controls .floating-mode { font-size: 12px; margin-left: auto; }.floating-controls .floating-volume { width: 55px; }
+.floating-queue { border-top: 1px solid var(--blog-border); max-height: 190px; overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+.floating-queue button { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 9px 6px; border-radius: 6px; font-size: 12px; }
+.floating-queue button[aria-current=true] { color: var(--blog-blue); background: color-mix(in srgb,var(--blog-blue) 9%,transparent); }.floating-queue button>span:first-child { opacity: .5; font-size: 10px; }.floating-queue button>span:nth-child(2) { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }.floating-queue small { max-width: 95px; opacity: .6; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.floating-room-link { display: block; text-align: center; font-size: 12px; margin-top: 12px; color: var(--blog-blue); }
+.floating-error { position: absolute; bottom: 65px; left: 0; width: min(330px,calc(100vw - 48px)); padding: 10px 14px; border: 1px solid var(--blog-border); border-radius: 12px; background: var(--blog-card); color: var(--blog-text); box-shadow: 0 4px 20px #0002; font-size: 12px; box-sizing: border-box; }.is-expanded .floating-error { position: relative; bottom: auto; margin-top: 8px; }
+@keyframes floating-disc-spin { to { transform: rotate(360deg); } }
+@media(max-width:600px) { #nav-music.floating-player { left: 12px; bottom: max(16px,env(safe-area-inset-bottom)); max-width: calc(100vw - 80px); }.floating-capsule { height: 48px; }.floating-player .floating-disc { width: 36px; height: 36px; }.floating-player .floating-title { max-width: 120px; font-size: 13px; padding-inline: 9px; }.floating-player .floating-lyric { width: 125px; padding-inline: 10px; font-size: 12px; }.floating-panel { width: min(350px,calc(100vw - 24px)); bottom: 60px; } }
+@media(prefers-reduced-motion:reduce) { .floating-player.is-playing .floating-art { animation: none; } }

@@ -1,0 +1,113 @@
+.bangumi-tabs {
+  display: flex;
+  gap: 14px;
+  margin: 24px 0 42px;
+}
+.bangumi-slogan {
+  margin-top: 26px;
+  padding: 10px 22px;
+  border: 1px solid var(--blog-border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--blog-bg) 78%, var(--blog-card));
+  color: color-mix(in srgb, var(--blog-text) 72%, transparent);
+  font-size: 17px;
+}
+.bangumi-tabs .bangumi-tab {
+  padding: 8px 14px;
+  background: transparent;
+  color: var(--blog-text);
+  font-size: 18px;
+  font-weight: 600;
+}
+.bangumi-tabs .bangumi-tab:hover {
+  background: var(--blog-bg);
+  color: var(--blog-text);
+}
+.bangumi-active {
+  background: var(--blog-blue);
+  color: white;
+}
+.bangumi-tabs .bangumi-tab.bangumi-active:hover {
+  background: var(--blog-blue);
+  color: white;
+}
+.bangumi-item {
+  display: flex;
+  padding: 22px 0 !important;
+  gap: 22px;
+  border-bottom: 1px solid var(--blog-border);
+  margin: 0 !important;
+  height: auto !important;
+}
+.bangumi-item > img,
+.bangumi-item > .media-placeholder {
+  width: 130px;
+  height: 180px;
+  flex-shrink: 0;
+  border-radius: 12px;
+}
+.bangumi-item > div {
+  flex: 1;
+  min-width: 0;
+}
+.bangumi-content {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+.bangumi-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.bangumi-item h2 {
+  margin: 0;
+  width: fit-content;
+  border-bottom: 3px solid var(--blog-blue);
+  color: var(--blog-text);
+  font-size: 21px;
+  line-height: 1.35;
+}
+.bangumi-meta {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(70px, 1fr));
+  gap: 0;
+  color: #f2ad38;
+}
+.bangumi-meta span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: 0 14px;
+  border-right: 1px solid color-mix(in srgb, var(--blog-blue) 65%, transparent);
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.bangumi-meta span:first-child {
+  padding-left: 0;
+}
+.bangumi-meta span:last-child {
+  border-right: 0;
+}
+.bangumi-meta b {
+  color: #f2ad38;
+  font-size: 12px;
+  font-weight: 500;
+}
+.bangumi-summary {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: color-mix(in srgb, var(--blog-text) 78%, transparent);
+  font-size: 14px;
+  line-height: 1.8;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.bangumi-item progress {
+  width: 100%;
+  accent-color: var(--blog-blue);
+}

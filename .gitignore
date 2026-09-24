@@ -1,0 +1,21 @@
+# 依赖
+node_modules/
+.pnpm-store/
+
+# 构建产物
+dist/
+*.tsbuildinfo
+
+# 日志
+*.log
+logs/
+
+# 系统文件
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# 工作流临时产物
+.superpowers/

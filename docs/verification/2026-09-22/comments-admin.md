@@ -1,0 +1,8 @@
+# Admin comment queue verification
+
+- Replaced the generic comments content manager with an admin moderation queue in `vue3-naive-admin/src/views/blog/comments/index.vue`. Pending is default; review-state tabs show counts. Source/keyword filtering, pagination, current-page bulk selection, approve/reject/revert, private contact details, sanitized Markdown preview, administrator replies, and confirmed deletion are wired to dedicated admin endpoints. The existing `PageHeaderSettings` comments entry remains.
+- Permissions are checked for list/create/update/delete; controls remain disabled while writes are in flight. Failed requests display a retryable error without discarding the reply or reason draft. The backend remains authoritative, including prevention of deleting a parent comment with replies.
+- `node --import tsx --test src/views/blog/comments/comment-utils.test.ts src/views/blog/comments/detail-selection.test.ts`: 5/5 passed. Coverage includes public URL origin selection and generation guards preventing stale Markdown/target lookups from overwriting a newer selection.
+- `pnpm typecheck`: passed.
+- `pnpm build:blog`: passed. The existing UnoCSS icon warnings for `select` and `local-` appeared during the build.
+- Browser verification by the coordinating agent covered guest creation through approval; no server was restarted for these follow-up fixes. Document/album links fetch the authoritative target slug before linking. Integrated development/production uses the current gateway origin, direct local admin development maps port 8080 to the public site on 5174, and split-origin deployments can set `VITE_PUBLIC_SITE_ORIGIN`.

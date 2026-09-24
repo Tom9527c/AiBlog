@@ -1,0 +1,7 @@
+# Unified comments and guestbook
+
+Extend the existing Nest/React/Vue blog. Preserve all existing content and settings. Guestbook uses a responsive envelope introduction inspired by ayakasuki.com/comments and the existing shared page header. All comment locations reuse a single React component: nickname/email/site guest form, safe Markdown preview, emoji and image URL insertion, date/avatar/pink author, owner badge, nested replies, OS/browser badges, sorting, refresh and real reaction actions. Only show location if supported by trustworthy server data; do not invent geography.
+
+Guest nickname required; email and HTTP(S) website optional. Every public submission including signed-in readers is pending. Only approved comments on readable targets and approved ancestor threads are public. Private contact and reaction voter identifiers are never projected publicly. Moderation uses the current table, published/draft plus metadata moderationStatus so no data migration is required. Existing published comments map to approved and drafts to pending. Root threads paginate, replies belong to their thread; replying to a reply retains a flattened root and reply label.
+
+Dedicated admin screen filters by review state and target, searches content/author, reviews text, supports approve/reject with reason, reply, bulk moderation and existing guarded deletion. Server endpoints enforce existing comment permissions. Existing generic routes cannot bypass privacy projection or content access rules.

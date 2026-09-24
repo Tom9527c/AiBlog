@@ -1,0 +1,21 @@
+.page-cover-header { position: relative; isolation: isolate; width: 100%; height: 304px; box-sizing: border-box; overflow: hidden; margin: 0 0 20px; border: 1px solid var(--anzhiyu-card-border,#e3e8f7); border-radius: 24px; background: linear-gradient(120deg,#385781,#708baa); color: #fff; }
+.page-cover-header > .page-cover-header__image { position: absolute; inset: 0; margin: 0!important; width: 100%!important; height: 100%!important; object-fit: cover; border-radius: 0; z-index: -2; }
+.page-cover-header::after { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg,#0005,transparent 70%),linear-gradient(0deg,#0005,transparent 55%); }
+.page-cover-header__content { height: 100%; padding: 16px 32px; box-sizing: border-box; display: flex; flex-direction: column; align-items: flex-start; }
+.page-cover-header__label { font-size: 12px; line-height: 2; opacity: .85; }
+#body-wrap .page-cover-header h1 { margin: 4px 0!important; font-size: 36px; font-weight: 700; line-height: 1.5; color: #fff; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+#body-wrap .page-cover-header p { margin: auto 0 6px!important; color: #fff; line-height: 1.6; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+#body-wrap #content-inner.layout #page:has(> .page-cover-header) { padding: 0!important; border: 0; background: transparent; box-shadow: none!important; }
+#body-wrap .article-detail .article-shared-header { max-width: 1352px; margin: 20px auto 0; }
+#body-wrap .article-detail .article-shared-meta { display: grid; gap: 8px; color: var(--blog-text); margin: 20px 0; font-size: 13px; }
+.article-shared-meta .meta-firstline,.article-shared-meta .meta-secondline { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.article-shared-meta .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+@media(max-width:768px) {
+  .page-cover-header { height: 260px; border-radius: 18px; }
+  .page-cover-header__content { padding: 20px; }
+  #body-wrap .page-cover-header h1 { font-size: 28px; }
+  #body-wrap .page-cover-header p { font-size: 14px; }
+  #body-wrap #blog-container:has(.page-cover-header) { padding: 0!important; }
+  #body-wrap #content-inner.layout:has(> #page > .page-cover-header) { width: 100%!important; max-width: none!important; padding: 16px!important; margin: 0 0 40px!important; }
+  #body-wrap .article-detail .article-shared-header { margin: 16px; }
+}

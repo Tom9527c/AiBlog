@@ -1,0 +1,1 @@
+export { BangumiPage } from "./BangumiPage";

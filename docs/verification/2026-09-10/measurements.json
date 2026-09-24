@@ -1,0 +1,305 @@
+{
+  "original": {
+    "#nav": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 60,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px 44px",
+      "transform": "none"
+    },
+    "#site-name": {
+      "x": 44,
+      "y": 12.5,
+      "w": 54.3125,
+      "h": 35,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px 2px",
+      "transform": "none"
+    },
+    "#menus": {
+      "x": 44,
+      "y": 0,
+      "w": 1352,
+      "h": 60,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    },
+    "#menus > .menus_items": {
+      "x": 559.65625,
+      "y": 0,
+      "w": 320.6875,
+      "h": 60,
+      "font": "19.5px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    "#nav-right": {
+      "x": 1256,
+      "y": 0,
+      "w": 140,
+      "h": 60,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    "#bbTimeList": {
+      "x": 44,
+      "y": 76.22526550292969,
+      "w": 1352,
+      "h": 50,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "8px 16px",
+      "transform": "matrix(1, 0, 0, 1, 0, 0.225263)"
+    },
+    "#home_top": {
+      "x": 20,
+      "y": 127.23495483398438,
+      "w": 1400,
+      "h": 356,
+      "font": "15px",
+      "display": "block",
+      "visibility": "visible",
+      "padding": "0px 24px",
+      "transform": "matrix(1, 0, 0, 1, 0, 1.23496)"
+    },
+    "#bannerGroup": {
+      "x": 46,
+      "y": 143.23495483398438,
+      "w": 720,
+      "h": 340,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    "#random-banner": {
+      "x": 46,
+      "y": 143.23495483398438,
+      "w": 720,
+      "h": 252.328125,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    ".banners-title": {
+      "x": 95,
+      "y": 198.16244506835938,
+      "w": 252,
+      "h": 116,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "matrix(1, 0, 0, 1, 0, 7.53687)"
+    },
+    ".topGroup": {
+      "x": 770,
+      "y": 143.23495483398438,
+      "w": 624,
+      "h": 340,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    ".todayCard": {
+      "x": 778,
+      "y": 143.23495483398438,
+      "w": 616,
+      "h": 340,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    "#recent-posts": {
+      "x": 44,
+      "y": 502,
+      "w": 1052,
+      "h": 2358.5,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    ".recent-post-list": {}
+  },
+  "actual": {
+    "#nav": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 60,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px 44px",
+      "transform": "none"
+    },
+    "#site-name": {
+      "x": 44,
+      "y": 12.5,
+      "w": 114.625,
+      "h": 35,
+      "font": "20px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px 2px",
+      "transform": "none"
+    },
+    "#menus": {
+      "x": 567.34375,
+      "y": 0,
+      "w": 305.3125,
+      "h": 60,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "matrix(1, 0, 0, 1, -152.656, 0)"
+    },
+    "#menus > .menus_items": {
+      "x": 567.34375,
+      "y": 0,
+      "w": 305.3125,
+      "h": 60,
+      "font": "18.2px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    "#nav-right": {
+      "x": 1292,
+      "y": 0,
+      "w": 104,
+      "h": 60,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    "#bbTimeList": {
+      "x": 44,
+      "y": 76.61150360107422,
+      "w": 1352,
+      "h": 50,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "8px 16px",
+      "transform": "matrix(1, 0, 0, 1, 0, 0.611503)"
+    },
+    "#home_top": {
+      "x": 44,
+      "y": 128.14724731445312,
+      "w": 1352,
+      "h": 356,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "matrix(1, 0, 0, 1, 0, 2.14726)"
+    },
+    "#bannerGroup": {
+      "x": 46,
+      "y": 144.14724731445312,
+      "w": 720,
+      "h": 340,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    "#random-banner": {
+      "x": 46,
+      "y": 144.14724731445312,
+      "w": 720,
+      "h": 251.59375,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    ".banners-title": {
+      "x": 47,
+      "y": 155.7803955078125,
+      "w": 538.5,
+      "h": 82.796875,
+      "font": "30px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "matrix(1, 0, 0, 1, 0, 10.6331)"
+    },
+    ".topGroup": {
+      "x": 770,
+      "y": 144.14724731445312,
+      "w": 624,
+      "h": 340,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    ".todayCard": {
+      "x": 778,
+      "y": 144.14724731445312,
+      "w": 616,
+      "h": 340,
+      "font": "15px",
+      "display": "flex",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    "#recent-posts": {
+      "x": 44,
+      "y": 522,
+      "w": 1052,
+      "h": 460,
+      "font": "15px",
+      "display": "block",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    },
+    ".recent-post-list": {
+      "x": 44,
+      "y": 590,
+      "w": 1052,
+      "h": 392,
+      "font": "15px",
+      "display": "grid",
+      "visibility": "visible",
+      "padding": "0px",
+      "transform": "none"
+    }
+  },
+  "errors": []
+}
