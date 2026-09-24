@@ -3,6 +3,91 @@
 `blog-web` 是博客的 React 前台项目，负责向访客展示文章、分类、标签、相册、追番、音乐、说说、友链、收藏、关于页面和评论功能，同时提供登录、密码内容解锁、媒体访问、主题切换、背景设置、右键菜单、阅读进度和悬浮音乐播放器等交互能力。
 
 项目使用 React + TypeScript + Vite 构建，页面按照业务模块放在 `src/views` 下。每个页面模块都有自己的入口文件，模块私有组件放在该模块的 `components/` 目录中；跨模块复用的组件才放在 `src/components`。
+**推荐阅读顺序：**先看「初学者上手」，再看「按业务走读」和「照着做」；需要逐文件定位时回到下方的目录与文件表。初次运行前先看 [../docs/blog-setup.md](../docs/blog-setup.md) 配置三项目的联调环境。
+
+
+## 初学者上手：先建立四个概念
+
+1. **页面是 `src/views` 中的业务入口。**例如访问 `/music/` 时，[router.tsx](src/app/router.tsx) 渲染 `views/music` 导出的 `Music`；页面中的按钮、列表和交互留在音乐模块，外壳、页脚、导航归 `src/app`。
+2. **列表响应不是直接的数组。**[src/types/index.ts](src/types/index.ts) 的 `Page` 在本项目表示 `{ items, total, page, pageSize }`；`listContent('documents', { page: 1 })` 返回文章分页，详情使用 `getContent('documents', slug)`。查询字符串由 [content.ts](src/services/content.ts) 统一生成。
+3. **内容类型决定 URL 和后端资源。**`documents` 是文章、`bangumis` 是追番、`albums`/`photos` 是相册/照片、`essays` 是说说、`music` 是手工维护的音乐内容。前台路径由 [path.ts](src/utils/path.ts) 生成；它和 API 路径不是同一件事。
+4. **前台权限状态会变化。**`BlogContext.revision` 在登录、解锁和跨标签页存储变化时递增；依赖受限内容的 `useLoad` 应把它放在依赖数组中，才能重新请求。只改界面上的 `locked` 文案不会改变服务端的访问权限。
+
+第一次改动建议从最窄的路径开始：打开目标路由 → 找到 `views/<模块>/index.ts` 的导出 → 找到该页面组件及它调用的 `components/` → 搜索请求函数 → 到后端核对字段含义。保存后先看 TypeScript 错误，再用浏览器观察请求和页面结果。
+
+### 三个项目如何连接
+
+```text
+浏览器 /                    blog-web/src/app/router.tsx → 页面 → src/services/api.ts
+浏览器 /admin/               vue3-naive-admin 的路由 → 管理页面 → src/service/api/blog.ts
+浏览器 /api/blog/public/...  网关去掉 /api → nest-admin BlogPublicController
+浏览器 /api/blog/admin/...   网关去掉 /api → nest-admin BlogAdminController
+```
+
+根目录 [../scripts/gateway.mjs](../scripts/gateway.mjs) 提供本地同源入口；`blog-web` 单独在 5174 端口启动时，与后台 8080 端口不是同一个浏览器 origin，两个页面的 `SOY_token` 不会共享。联调登录优先使用根目录的 `npm run dev`，访问 `http://localhost:5173/` 和 `http://localhost:5173/admin/`。生产环境的 `/api` 和 `/admin` 配置见 [../deploy/nginx-blog.conf](../deploy/nginx-blog.conf)。
+
+## 按业务走读：从数据到画面
+
+| 想看到的功能 | 入口和数据读取 | 页面如何更新 | 出问题先查哪里 |
+| --- | --- | --- | --- |
+| 首页文章列表 | `views/home/Home.tsx` 调用 `list('documents', ...)`，Hero 读取 `BlogContext.site`，说说摘要复用 `views/essays/broadcast.ts` | 页码改变会重新调用 `useLoad`；站点设置刷新后重新载入页面 | 请求失败看 `services/legacy/api.ts` 和后端公开列表；只有布局出错看 `home/components` 与 `home-*.css` |
+| 文章详情 | `views/articles/Article.tsx` 从路径中取 slug，请求 `detail('documents', slug)`；分类标签单独查详情，上一篇/下一篇使用 `articleNeighbors` | `revision` 变化会重新请求文章；正文交给 `ContentBody`，评论交给 `Comments` | 404 看 slug；正文不显示看 `locked`/`LoadedContent`；目录与正文样式看 `Article.tsx` 和 `article-parity.css` |
+| 归档与分类标签 | `views/articles/Archives.tsx`、`views/taxonomy/Taxonomy.tsx` 根据 URL 年/月、slug 和页码请求列表 | 参数变化触发新列表；翻页滚动由 `useArticlePageScroll` 处理 | 查询条件看页面传给 `list` 的参数；路径跳转看 `pathFor` |
+| 相册 | `views/albums/Albums.tsx` 读取相册或照片；`useAlbumFeed` 每次拉 24 条并按 ID 去重 | 下一页成功后才提交页码；路由或授权变化时重建相册视图 | 照片空白先看 `parentId`、相册 `locked`、受限媒体请求，再查灯箱和视频组件 |
+| 追番 | `views/bangumi/BangumiPage.tsx` 按 `state`（想看/在看/看过）读取 `bangumis`，另用 `pageSize: 1` 获取各状态数量 | 切换状态或页码后重新加载；`revision` 更新受限内容 | 数量不对看状态筛选和后端 `metadata.state`；卡片样式看 `bangumi.css` |
+| 说说 | `views/essays/EssayPage.tsx` 默认读取最近 30 条；`?id=` 请求单条；媒体来自 `EssayMedia` 和 `model.ts` | 点击评论展开当前条；只在打开过讨论后保留组件和草稿 | 说说与评论混用时先核对 `targetKind=essays`、`targetId` |
+| 留言与评论 | `Comments.tsx` 根据目标、页码、排序读取评论；`CommentComposer` 发送，`CommentRow` 发送点赞/点踩 | 提交后提示“审核通过后公开”；列表靠手动刷新或 `revision` 重载，不能假设新评论立即出现 | 看请求目标字段、游客标识、审核状态与 `comments.service.ts` |
+| 音乐 | `music-service.ts` 合并公开曲库 `/blog/public/music` 和分页的手工 `music` 内容；`useMusicPlayback` 管播放状态 | 登录/解锁导致 `revision` 变化时重载歌单；播放器换曲再请求音源和歌词 | 手工曲目看 `legacyId` 的详情请求；QQ 曲目看 `tracks/:id/media`，播放失败看下一首回退逻辑 |
+
+### 内容读取的实际约定
+
+- [useLoad.ts](src/hooks/useLoad.ts) 负责 `loading`、`error`、`data` 和 `reload`，并在组件卸载后避免写入状态；页面只把业务请求函数传给它。页面变化时将页码、slug、筛选条件传入依赖数组。
+- [services/api.ts](src/services/api.ts) 只是兼容导出。真正执行 `fetch` 的是 [services/legacy/api.ts](src/services/legacy/api.ts)：基址默认为 `/api`，解析后端 `{ code, data, message }`；非成功码抛错，401 清除登录 Token。
+- `GET /blog/public/content/:kind` 返回列表；`GET /blog/public/content/:kind/:slug` 返回详情。后端列表可能提供 `locked` 的摘要；前台不要从摘要擅自补全正文或媒体 URL。
+- `articleNeighbors` 为了遵守公开列表的排序，会按每页 100 条依次扫描，找到目标文章之后返回邻居；大量内容时若觉得详情慢，先检查这段逻辑和后端排序，再优化。
+
+### 登录、解锁和媒体的完整链
+
+1. [auth/index.tsx](src/views/auth/index.tsx) 登录成功调用 `setToken`，写入 `localStorage` 的 `SOY_token` 键，并发送 `blog-auth` 事件；[App.tsx](src/app/App.tsx) 监听它后查询 `/blog/public/session` 并递增 `revision`。
+2. 后端投影中受限条目的 `locked=true` 时，[LoadedContent.tsx](src/components/content/LoadedContent.tsx) 与 [Gate.tsx](src/components/content/Gate.tsx) 显示登录或密码输入。密码提交到 `POST /blog/public/content/:kind/:id/unlock`，前台把授权凭证写入 `sessionStorage.blog-unlocks`，发送 `blog-access` 事件。
+3. `services/legacy/api.ts` 的 `headers()` 为后续请求携带 `Authorization: Bearer ...` 和 `X-Blog-Unlock`。后端验证凭证和内容状态后才返回正文；前台 `revision` 触发相关内容重新请求。
+4. [Media.tsx](src/components/media/Media.tsx) 发现 `/blog-media/:id` 时调用 `mediaUrl()`，使用相同的授权头请求 `/blog/public/media/:id` 并创建 `blob:` URL；组件卸载时负责释放 URL。服务端还会检查该媒体是否关联到当前可读内容。外部 `http(s)` 图片由 `safeUrl` 过滤，不走受限媒体接口。
+
+注意：`SOY_token` 是键名；上述流程依赖浏览器 origin。密码解锁凭证是本浏览器会话的状态，刷新页面后可继续使用，关闭会话后需要重新解锁；改变访问模式或密码后旧凭证的访问版本会失效。
+
+## 照着做：一次安全的小改动
+
+**例子：给追番增加“推荐理由”（新增字段 `metadata.recommendation`）。**这是一个前后台都要改的演练，目前代码里没有这个字段，不能只在 React 页面加标签。
+
+1. 先在后端 [blog-metadata.ts](../nest-admin/src/modules/blog/content/blog-metadata.ts) 的 `bangumis` 规则里允许最长 200 字的 `recommendation`；否则保存时会收到“扩展字段 recommendation 格式错误”。
+2. 在后台 [BangumiFields.vue](../vue3-naive-admin/src/views/blog/bangumis/components/BangumiFields.vue) 添加 `v-model:value="form.metadata.recommendation"` 输入；旧条目缺少此键时，在 [ContentManager.vue](../vue3-naive-admin/src/views/blog/content/components/ContentManager.vue) 的 `edit()` 初始化 `metadata` 时给它空字符串默认值。
+3. 在前台 [BangumiPage.tsx](src/views/bangumi/BangumiPage.tsx) 的 `entries.data?.items.map(item => ...)` 卡片内添加展示。字段是 `Record<string, unknown>`，先缩小类型，再渲染；锁定内容没有公开元数据：
+
+   ```tsx
+   {!item.locked && typeof item.metadata.recommendation === 'string' &&
+     item.metadata.recommendation.trim() && (
+       <p className="bangumi-recommendation">推荐理由：{item.metadata.recommendation}</p>
+     )}
+   ```
+
+4. 在 [bangumi.css](src/views/bangumi/bangumi.css) 写这个类的样式；后台编辑并发布一条番剧，浏览器中确认保存后的响应、刷新后的后台详情、前台追番列表显示，以及未填写时不出现空标签。
+5. 分别跑后端类型检查和构建、后台 `pnpm typecheck && pnpm build:blog`、前台 `npm run typecheck && npm run build`。改动顺序依赖实际数据：后端允许字段 → 后台能保存 → 前台能读取和显示。
+
+**例子：新增一个完全独立的“笔记”公开页面（需要后端支持对应内容类型）。**先确定 API 的 `kind`、返回类型和权限规则；然后在 `src/views/notes/` 创建 `index.ts`、页面文件、`components/` 和专用 CSS。页面通过 `services/content.ts` 查询并用 `Status` 处理加载/空/错三态；在 [router.tsx](src/app/router.tsx) 增加路由，在 [types/index.ts](src/types/index.ts) 扩展 `Kind`，在 [path.ts](src/utils/path.ts) 增加 URL 生成规则。最后同步后台路由、表单、服务端实体、DTO、迁移和菜单权限。只新增前台 `Route` 不会凭空产生后端内容。
+
+## 常见症状：按顺序定位
+
+| 症状 | 第一步 | 第二步 | 第三步 |
+| --- | --- | --- | --- |
+| 页面空白 | 浏览器控制台及 `router.tsx` 是否匹配 | Network 是否请求了期望的 `kind` | `Status` 是 loading、empty 还是 error |
+| 404 | 看前台路径是否正确（`/posts/:slug` 等） | 看网关/部署是否将深链接回退到前台 `index.html` | 看 API 的 slug 是否存在且已发布 |
+| 登录后依然锁定 | 看 `SOY_token` 是否位于当前 origin | 看 `/blog/public/session` 和内容详情响应 | 看 `revision` 是否让页面重载 |
+| 图片 / 视频加载失败 | 看源 URL 是外链还是 `/blog-media/:id` | 受限文件看 `/blog/public/media/:id` 的状态码 | 看文件是否在后端存储、媒体引用是否仍有效 |
+| 评论提交成功却不显示 | 看页面提示是否说明等待审核 | 在后台看评论的审核状态 | 检查目标文章、相册或说说是否可读 |
+| 音乐不播放 | 看 `/blog/public/music` 与手工音乐列表 | 看按曲目 ID 的 media 接口与音频 URL | 看浏览器自动播放限制及播放失败跳过提示 |
+| 某处 CSS 改动影响全站 | 查页面是否用了全局类名 | 检查模块 CSS 与 `styles/index.css` | 给模块根节点加明确作用域再修正选择器 |
+
+文档中的运行与模块说明基于当前代码；浏览器联调还受数据库现有内容和权限影响。遇到真实数据问题，先记录请求路径、状态码和 `kind/id`，再顺着上面的链条定位，避免直接改公共请求层掩盖业务错误。
 
 ## 目录原则
 
@@ -55,7 +140,7 @@ npm run typecheck
 # 构建生产版本
 npm run build
 
-# 运行 Vitest
+# 运行 Vitest（测试文件已删除，当前可能提示没有找到测试）
 npm test
 ```
 
@@ -149,6 +234,7 @@ src/main.tsx
 | --- | --- |
 | [src/main.tsx](src/main.tsx) | React 入口。创建 React 根节点，挂载 `StrictMode`、`BrowserRouter` 和 `App`，同时引入全局 CSS 和页面兼容样式。 |
 | [src/App.tsx](src/App.tsx) | 兼容入口，只从 `src/app/App.tsx` 重导出，方便旧代码或外部入口继续引用。 |
+| [src/vendor.d.ts](src/vendor.d.ts) | 本项目对 `qrcode` 与 `opencc-js` 所用 API 的模块类型声明；导入时报“找不到声明”时先检查这里与实际依赖版本。 |
 
 ### `src/app`
 
@@ -165,7 +251,9 @@ src/main.tsx
 
 ## 公共组件
 
-### `src/components/index.tsx`
+[src/components/context.ts](src/components/context.ts) 声明 `BlogContext`、`useBlog()` 和上下文的字段类型；页面使用 `useBlog()` 读取 `site`、`session`、`revision` 等状态，提供者由 `src/app/BlogProvider.tsx` 包装。
+
+### [src/components/index.tsx](src/components/index.tsx)
 
 这是公共组件的聚合出口，只负责重导出，不应重新堆积组件实现。当前出口包括：
 
@@ -245,6 +333,8 @@ src/main.tsx
 | [useTraditional.ts](src/components/extra/useTraditional.ts) | 简繁转换 Hook。监听 DOM 变化，将页面文字和部分属性转换为繁体，并在关闭时恢复原文字。 |
 
 ## 页面模块说明
+
+[src/views/index.ts](src/views/index.ts) 是页面模块的聚合导出；业务实现都留在各自 `views/<模块>/` 下。
 
 每个页面模块都遵循同样的结构：
 
@@ -490,7 +580,7 @@ API 兼容出口。当前请求实现仍位于 `services/legacy/api.ts`，此文
 
 ### React Context
 
-`BlogProvider` 提供以下全站状态：
+[BlogProvider.tsx](src/app/BlogProvider.tsx) 提供以下全站状态：
 
 | 字段 | 作用 |
 | --- | --- |
